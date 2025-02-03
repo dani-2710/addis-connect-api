@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Infrastructure.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Presentation.Middlewares;
 
 namespace Presentation
 {
@@ -6,6 +8,16 @@ namespace Presentation
     {
         public static IServiceCollection AddPresentation(this IServiceCollection services)
         {
+            services.AddControllers();
+            services.AddExceptionHandler<ExceptionHandlerMiddleware>();
+            services.AddProblemDetails();
+
+            services.ConfigureOptions<JwtOptionsSetup>();
+            services.ConfigureOptions<JwtBearerOptionsSetup>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer();
+            services.AddAuthorization();
+            
             return services;
         }
     }

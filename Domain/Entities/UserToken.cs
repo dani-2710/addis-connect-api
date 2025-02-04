@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public class UserToken
+    public class UserToken : BaseEntity
     {
         public Guid Id { get; set; }
         public required string Token { get; set; }

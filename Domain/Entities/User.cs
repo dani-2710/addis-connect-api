@@ -15,6 +15,7 @@ namespace Domain.Entities
 
         public virtual ICollection<UserRole> UserRoles { get; set; } = null!;  
         public virtual ICollection<UserToken> UserTokens { get; set; } = null!;  
+        public virtual Organizer? Organizer { get; set; }
 
     }
 }

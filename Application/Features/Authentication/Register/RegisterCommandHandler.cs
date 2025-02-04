@@ -21,7 +21,8 @@ namespace Application.Features.Authentication.Register
 
             var hashedPassword = new PasswordHasher<User>().HashPassword(user, request.Password);
 
-            user.Name = request.Name;
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
             user.Email = request.Email;
             user.Password = hashedPassword;
             user.PhoneNumber = request.PhoneNumber;

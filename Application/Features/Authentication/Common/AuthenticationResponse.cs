@@ -1,8 +1,7 @@
 ﻿namespace Application.Features.Authentication.Common
 {
     public sealed record AuthenticationResponse(Guid Id,
-        string FirstName,
-        string LastName,
+        string Name,
         string Email,
         string PhoneNumber,
         string AccessToken,

@@ -6,8 +6,7 @@ namespace Application.Features.Authentication.Register
     {
         public RegisterCommandValidator()
         {
-            RuleFor(command => command.FirstName).NotEmpty();
-            RuleFor(command => command.LastName).NotEmpty();
+            RuleFor(command => command.Name).NotEmpty();
             RuleFor(command => command.Email).NotEmpty().EmailAddress();
             RuleFor(command => command.PhoneNumber).NotEmpty();
             RuleFor(command => command.Password).NotEmpty().MinimumLength(8);

@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 namespace Application.Features.Authentication.Register
 {
     public sealed record RegisterCommand(
-        string FirstName,
-        string LastName,
+        string Name,
         string Email,
         string Password,
         string PhoneNumber) : ICommand<AuthenticationResponse>;

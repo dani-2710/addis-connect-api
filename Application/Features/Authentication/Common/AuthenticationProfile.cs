@@ -13,8 +13,7 @@ namespace Application.Features.Authentication.Common
             CreateMap<(User, TokenResponse), AuthenticationResponse>()
                 .ConstructUsing(src => new AuthenticationResponse(
                     src.Item1.Id,
-                    src.Item1.FirstName,
-                    src.Item1.LastName,
+                    src.Item1.Name,
                     src.Item1.Email,
                     src.Item1.PhoneNumber,
                     src.Item2.AccessToken,

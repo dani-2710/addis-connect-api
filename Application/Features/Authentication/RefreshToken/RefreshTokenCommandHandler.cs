@@ -1,4 +1,4 @@
-﻿using Application.Features.Authentication.Common;
+﻿using Application.Features.Authentication.Dtos;
 using Application.Interfaces;
 using Application.Repositories;
 using Domain.Errors;
@@ -6,9 +6,9 @@ using ErrorOr;
 
 namespace Application.Features.Authentication.RefreshToken
 {
-    internal sealed class RefreshTokenCommandHandler(IUserRepository userRepository, IJwtService jwtService) : ICommandHandler<RefreshTokenCommand, TokenResponse>
+    internal sealed class RefreshTokenCommandHandler(IUserRepository userRepository, IJwtService jwtService) : ICommandHandler<RefreshTokenCommand, TokenDto>
     {
-        public async Task<ErrorOr<TokenResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<TokenDto>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
             var userToken = await jwtService.ValidateRefreshTokenAsync(request.RefreshToken);
 
@@ -19,7 +19,7 @@ namespace Application.Features.Authentication.RefreshToken
             var refreshToken = jwtService.GenerateRefreshToken();
             var updatedUserToken = await userRepository.UpdateUserTokenAsync(userToken.Id, refreshToken);
 
-            return new TokenResponse(accessToken, updatedUserToken.Token);
+            return new TokenDto(accessToken, updatedUserToken.Token);
         }
     }
 }

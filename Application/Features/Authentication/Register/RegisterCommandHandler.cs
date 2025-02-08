@@ -1,4 +1,5 @@
-﻿using Application.Features.Authentication.Common;
+﻿using Application.Features.Authentication.Dtos;
+using Application.Features.Users.Dtos;
 using Application.Interfaces;
 using Application.Repositories;
 using AutoMapper;
@@ -10,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Application.Features.Authentication.Register
 {
-    internal sealed class RegisterCommandHandler(IUserRepository userRepository, IJwtService jwtService, IMapper mapper) : ICommandHandler<RegisterCommand, AuthenticationResponse>
+    internal sealed class RegisterAdminCommandHandler(IUserRepository userRepository, IJwtService jwtService, IMapper mapper) : ICommandHandler<RegisterCommand, AuthenticationResponse>
     {
         public async Task<ErrorOr<AuthenticationResponse>> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
@@ -52,9 +53,10 @@ namespace Application.Features.Authentication.Register
                 UserId = newUser!.Id,
             });
 
-            var tokenResponse = new TokenResponse(accessToken, refreshToken);
+            var userDto = mapper.Map<UserDto>(newUser);
+            var tokenDto = new TokenDto(accessToken, refreshToken);
 
-            return mapper.Map<AuthenticationResponse>((newUser, tokenResponse));
+            return mapper.Map<AuthenticationResponse>((userDto, tokenDto));
         }
     }
 }

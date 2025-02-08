@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application.Features.Organziers.CreateOrganizer;
+using FluentValidation;
 
 namespace Application.Features.Authentication.Register
 {
@@ -10,7 +11,7 @@ namespace Application.Features.Authentication.Register
             RuleFor(command => command.LastName).NotEmpty();
             RuleFor(command => command.Email).NotEmpty().EmailAddress();
             RuleFor(command => command.PhoneNumber).NotEmpty();
-            RuleFor(command => command.Password).NotEmpty().MinimumLength(8);
+            RuleFor(command => command.Password).NotEmpty();
         }
     }
 }

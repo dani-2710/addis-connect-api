@@ -1,4 +1,5 @@
-﻿using Application.Features.Authentication.Common;
+﻿using Application.Features.Authentication.Dtos;
+using Application.Features.Users.Dtos;
 using Application.Interfaces;
 using Application.Repositories;
 using AutoMapper;
@@ -33,9 +34,10 @@ namespace Application.Features.Authentication.Login
                 UserId = user.Id,
             });
 
-            var tokenResponse = new TokenResponse(accessToken, refreshToken);
+            var userDto = mapper.Map<UserDto>(user);
+            var tokenDto = new TokenDto(accessToken, refreshToken);
 
-            return mapper.Map<AuthenticationResponse>((user, tokenResponse));
+            return mapper.Map<AuthenticationResponse>((userDto, tokenDto));
         }
     }
 }

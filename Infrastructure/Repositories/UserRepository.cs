@@ -23,6 +23,12 @@ namespace Infrastructure.Repositories
             return userRole;
         }
 
+        public async Task<Role?> GetRoleByNameAsync(string roleName)
+        {
+            var role = await dbContext.Roles.FirstOrDefaultAsync(role => role.Name == roleName);
+            return role;
+        }
+
         public async Task<UserToken> CreateUserTokenAsync(UserToken userToken)
         {
             await dbContext.UserTokens.AddAsync(userToken);
@@ -30,12 +36,6 @@ namespace Infrastructure.Repositories
             await dbContext.SaveChangesAsync();
 
             return userToken;
-        }
-
-        public async Task<Role?> GetRoleByNameAsync(string roleName)
-        {
-            var role = await dbContext.Roles.FirstOrDefaultAsync(role => role.Name == roleName);
-            return role;
         }
 
         public async Task<User?> GetUserByEmailAsync(string email)

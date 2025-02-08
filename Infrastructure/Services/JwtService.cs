@@ -40,7 +40,7 @@ namespace Infrastructure.Services
                issuer: options.Value.Issuer,
                audience: options.Value.Audience,
                claims: claims,
-               expires: DateTime.UtcNow.AddMinutes(options.Value.ExpiryDays),
+               expires: DateTime.UtcNow.AddMinutes(options.Value.ExpiryMinutes),
                signingCredentials: creds
                );
 

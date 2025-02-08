@@ -18,6 +18,7 @@ namespace Infrastructure
             services.AddScoped<IAppSeeder, AppSeeder>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOrganizerRepository, OrganizerRepository>();
 
             services.AddDbContext<AppDbContext>(options =>
             {

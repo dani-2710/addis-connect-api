@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250210050106_AddCategory")]
+    partial class AddCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,19 +43,12 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", t =>
-                        {
-                            t.HasCheckConstraint("CHK_Category_Status", "Status IN ('ACTIVE', 'INACTIVE')");
-                        });
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Domain.Entities.Organizer", b =>
@@ -91,10 +87,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Organizers", t =>
-                        {
-                            t.HasCheckConstraint("CHK_Organizer_Status", "Status IN ('ACTIVE', 'INACTIVE')");
-                        });
+                    b.ToTable("Organizers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Role", b =>
@@ -166,10 +159,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users", t =>
-                        {
-                            t.HasCheckConstraint("CHK_User_Status", "Status IN ('ACTIVE', 'INACTIVE')");
-                        });
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserRole", b =>

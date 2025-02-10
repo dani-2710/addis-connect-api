@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250210082645_AddDiscount")]
+    partial class AddDiscount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,25 +74,20 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("ValidFrom")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("ValidTo")
+                    b.Property<DateTime>("ValidityPeriod")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Discounts", t =>
-                        {
-                            t.HasCheckConstraint("CK_Discount_ValidDate", "\"ValidFrom\" < \"ValidTo\"");
-
-                            t.HasCheckConstraint("CK_Discount_ValidFrom_Future", "\"ValidFrom\" > CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
-
-                            t.HasCheckConstraint("CK_Discount_ValidTo_Future", "\"ValidTo\" > CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
-                        });
+                    b.ToTable("Discounts");
                 });
 
             modelBuilder.Entity("Domain.Entities.Organizer", b =>

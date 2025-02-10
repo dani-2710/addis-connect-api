@@ -13,6 +13,7 @@ namespace Infrastructure.Persistence
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<UserToken> UserTokens { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
 
         public override int SaveChanges()
         {
@@ -38,6 +39,7 @@ namespace Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new OrganizerConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new DiscountConfiguration());
         }
 
         private void AddTimestamps()

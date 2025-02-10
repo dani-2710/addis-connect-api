@@ -20,6 +20,7 @@ namespace Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOrganizerRepository, OrganizerRepository>();
             services.AddScoped<ICategoryRepository, CategoryRespository>();
+            services.AddScoped<IDiscountRepository, DiscountRepository>();
 
             services.AddDbContext<AppDbContext>(options =>
             {
